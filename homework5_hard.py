@@ -58,14 +58,15 @@ def copy_file():
         print("Необходимо указать имя файла вторым параметром")
         return
 
-    filename = os.path.basename(dir_name)
-    if os.path.exists(filename):
+    file_path = os.path.join(os.getcwd(), dir_name)
+    filename = os.path.basename(file_path)
+    if os.path.exists(file_path):
         new_filename = filename.split(".")[0] + '_copy.py'
         if os.name == "nt":
-            if os.popen('copy ' + filename + ' ' + new_filename):
+            if os.popen('copy ' + file_path + ' ' + new_filename):
                 print ("Файл " + filename + " скопирован")
         else:
-            if os.popen('cp ' + filename + ' ' + new_filename):
+            if os.popen('cp ' + file_path + ' ' + new_filename):
                 print("Файл " + filename + " скопирован")
     else:
         print("Файл " + filename + " не существует")
@@ -75,10 +76,11 @@ def delete_file():
         print("Необходимо указать имя файла вторым параметром")
         return
 
-    filename = os.path.basename(dir_name)
-    if os.path.exists(filename):
+    file_path = os.path.join(os.getcwd(), dir_name)
+    filename = os.path.basename(file_path)
+    if os.path.exists(file_path):
         try:
-            os.remove (filename, dir_fd=None)
+            os.remove (file_path, dir_fd=None)
             print("Файл " + filename + " успешно удален")
         except OSError:
             print("При удалении файла " + filename + " произошла ошибка")
